@@ -3,6 +3,7 @@ import { produce } from "immer";
 import logger from "redux-logger";
 
 import thunk from "redux-thunk";
+import { actions } from "./actions";
 
 const initialState = {
   tabIndex: 0,
@@ -10,7 +11,24 @@ const initialState = {
     {
       id: "Thu Jun 04 2020 08:01:54 GMT+0100 (British Summer Time)0",
       columnDefs: [
-        { field: "athlete" },
+        {
+          headerName: "Row",
+          valueGetter: "node.rowIndex + 1",
+          hidden: true,
+        },
+        {
+          field: "athlete",
+          valueSetter: function (params) {
+            console.log(params);
+            actions.columnEdit(
+              params.data,
+              params.oldValue,
+              params.newValue,
+              params.colDef
+            );
+            return false;
+          },
+        },
         { field: "age" },
         { field: "country" },
         { field: "year" },
@@ -30,7 +48,9 @@ const initialState = {
     {
       id: "Thu Jun 04 2020 08:01:54 GMT+0100 (British Summer Time)1",
       columnDefs: [
-        { field: "athlete" },
+        {
+          field: "athlete",
+        },
         { field: "age" },
         { field: "country" },
         { field: "year" },
@@ -44,6 +64,7 @@ const initialState = {
       url:
         "https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json",
       sortModel: [],
+
       fetchAgain: true,
       name: "Tab 2",
     },
@@ -62,6 +83,7 @@ const types = {
   SET_GRID_FETCH_AGAIN_TO_FALSE: "SET_GRID_FETCH_AGAIN_TO_FALSE",
   SET_GRID_DATA: "SET_GRID_DATA",
   FETCH_GRID_DATA: "FETCH_GRID_DATA",
+  EDIT_CELL: "EDIT_CELL",
 };
 
 function gridReducer(state = {}, action) {
@@ -88,11 +110,19 @@ function gridReducer(state = {}, action) {
     case types.SET_GRID_FETCH_AGAIN_TO_FALSE:
       return setGridFetchAgainToFalse(state, payload);
 
+    case types.EDIT_CELL:
+      return editGridCell(state, payload);
     default:
       return state;
   }
 }
 
+function editGridCell(state, { data, oldValue, newValue, colDef }) {
+  if (oldValue !== newValue) {
+    return state;
+  }
+  return state;
+}
 function addTab(state, gridConfig) {
   return produce(state, (draftState) => {
     let currentAllGrids = getAllGrids(draftState);

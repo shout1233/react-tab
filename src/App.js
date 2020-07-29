@@ -1,14 +1,10 @@
 import React from "react";
-import TabsList from "./components/layout/TabsList";
-import PanelsList from "./components/layout/PanelsList";
+// import TabsList from "./components/layout/TabsList";
+// import PanelsList from "./components/layout/PanelsList";
+import Main from "./components/layout/Main";
 
 const App = () => {
-  return (
-    <div className="tabs-view">
-      <TabsList />
-      <PanelsList />
-    </div>
-  );
+  return <Main />;
 };
 
 export default App;

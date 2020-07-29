@@ -12,6 +12,7 @@ const types = {
   SET_GRID_FETCH_AGAIN_TO_FALSE: "SET_GRID_FETCH_AGAIN_TO_FALSE",
   SET_GRID_DATA: "SET_GRID_DATA",
   FETCH_GRID_DATA: "FETCH_GRID_DATA",
+  EDIT_CELL: "EDIT_CELL",
 };
 
 export const actions = {
@@ -81,6 +82,12 @@ export const actions = {
     };
   },
 
+  columnEdit(data, oldValue, newValue, colDef) {
+    return {
+      type: types.EDIT_CELL,
+      payload: { data, oldValue, newValue, colDef },
+    };
+  },
   setGridFetchAgainToFalse(gridId) {
     return {
       type: types.SET_GRID_FETCH_AGAIN_TO_FALSE,

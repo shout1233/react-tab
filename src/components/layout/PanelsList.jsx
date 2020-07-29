@@ -5,10 +5,11 @@ import Panel from "./Panel";
 import MyGrid from "./MyGrid";
 
 function PanelsList(props) {
+  console.log("aa");
   const allGrids = useSelector((state) => getAllGrids(state));
-  console.log(allGrids.length);
+  //console.log(allGrids.length);
   const currentTabIndex = useSelector((state) => getTabIndex(state));
-  console.log("currentTabIndex : " + currentTabIndex);
+  //console.log("currentTabIndex : " + currentTabIndex);
   let allPanels = allGrids.map((grid, i) => {
     return (
       <Panel
@@ -26,4 +27,4 @@ function PanelsList(props) {
 }
 
 // export default PanelsList;
-export default React.memo(PanelsList);
+export default PanelsList;

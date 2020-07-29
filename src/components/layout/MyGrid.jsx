@@ -14,6 +14,7 @@ class MyGrid extends Component {
     this.defaultColDef = {
       sortable: true,
       resizable: true,
+      editable: true,
 
       //ag-grid enterprice 에서만
       //enableValue: true,
@@ -30,14 +31,14 @@ class MyGrid extends Component {
     let gridId = this.props.id;
     let url = this.props.url;
 
-    console.log("gridId : " + gridId);
-
     if (this.props.fetchAgain) {
       this.props.actions.fetchGridDataAction(gridId, url);
     }
   }
 
   render() {
+    console.log(this.props.id);
+    console.log("grid render");
     //console.log(JSON.stringify(this.props.columnDefs, null, 2));
     return (
       <div
@@ -67,3 +68,10 @@ const mapDispatchToProps = (dispatch) => ({
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(MyGrid);
+
+function areEqual(prevProps, nextProps) {
+  //console.log(JSON.stringify(prevProps.rowData));
+  //console.log(JSON.stringify(nextProps.rowData));
+  console.log(nextProps.id);
+  return prevProps.rowData === nextProps.rowData;
+}

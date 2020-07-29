@@ -1,7 +1,7 @@
 let url =
   "https://raw.githubusercontent.com/ag-grid/ag-grid/master/grid-packages/ag-grid-docs/src/olympicWinnersSmall.json";
 let columnDefs = [
-  { field: "athlete" },
+  { field: "athlete", editable: true },
   { field: "age" },
   { field: "country" },
   { field: "year" },

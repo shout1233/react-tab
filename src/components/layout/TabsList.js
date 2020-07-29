@@ -33,16 +33,16 @@ function TabsList(props) {
   const allTabs = mapAllGridsToTabs(allGrids);
 
   const handleChange = (event, newValue) => {
-    dispatch(actions.changeTabIndexAction(newValue));
+    dispatch(actions.setTabIndex(newValue));
   };
-  const addNewTab = () => {
-    const gridConfig = generateGridConfig();
-    dispatch(actions.addTabAction(gridConfig));
-  };
+  // const addNewTab = () => {
+  //   const gridConfig = generateGridConfig();
+  //   dispatch(actions.addTabAction(gridConfig));
+  // };
 
   return (
     <>
-      <Button
+      {/* <Button
         className={"action-btn"}
         onClick={() => addNewTab()}
         variant="outlined"
@@ -50,7 +50,7 @@ function TabsList(props) {
         size="large"
       >
         ADD NEW TAB
-      </Button>
+      </Button> */}
       <AppBar className={"app-bar"} position="static" color="default">
         <Tabs
           value={tabIndex}
