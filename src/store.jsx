@@ -6,6 +6,7 @@ import thunk from "redux-thunk";
 import { actions } from "./actions";
 
 const initialState = {
+  selectedMenus: [],
   tabIndex: 0,
   allGrids: [
     {
@@ -19,7 +20,6 @@ const initialState = {
         {
           field: "athlete",
           valueSetter: function (params) {
-            console.log(params);
             actions.columnEdit(
               params.data,
               params.oldValue,
@@ -84,6 +84,7 @@ const types = {
   SET_GRID_DATA: "SET_GRID_DATA",
   FETCH_GRID_DATA: "FETCH_GRID_DATA",
   EDIT_CELL: "EDIT_CELL",
+  ADD_MENU_TAB: "ADD_MENU_TAB",
 };
 
 function gridReducer(state = {}, action) {
@@ -112,6 +113,9 @@ function gridReducer(state = {}, action) {
 
     case types.EDIT_CELL:
       return editGridCell(state, payload);
+
+    case types.ADD_MENU_TAB:
+      return addMenuTab(state, payload);
     default:
       return state;
   }
@@ -129,7 +133,16 @@ function addTab(state, gridConfig) {
     currentAllGrids.push(gridConfig);
   });
 }
+function addMenuTab(state, selectedMenu) {
+  return produce(state, (draftState) => {
+    const alreadySelectedMenu = state.selectedMenus.find(
+      (menu) => menu.menuId === selectedMenu.menuId
+    );
 
+    let selectedMenus = draftState.selectedMenus;
+    if (!alreadySelectedMenu) selectedMenus.push(selectedMenu);
+  });
+}
 function changeTabName(state, { viewId, gridId, newName }) {
   return produce(state, (draftState) => {
     let grid = getGridByGridId(draftState, gridId);
@@ -179,6 +192,10 @@ export function getCurrentViewAllGrids(state) {
 
 export function getAllGrids(state) {
   return state?.allGrids ? state?.allGrids : [];
+}
+
+export function getSelectedMenus(state) {
+  return state.selectedMenus;
 }
 
 export function getTabIndex(state) {

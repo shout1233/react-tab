@@ -8,19 +8,13 @@ import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemIcon from "@material-ui/core/ListItemIcon";
 import ListItemText from "@material-ui/core/ListItemText";
-import HomeIcon from "@material-ui/icons/Home";
-import PeopleIcon from "@material-ui/icons/People";
-import DnsRoundedIcon from "@material-ui/icons/DnsRounded";
-import PermMediaOutlinedIcon from "@material-ui/icons/PhotoSizeSelectActual";
-import PublicIcon from "@material-ui/icons/Public";
-import SettingsEthernetIcon from "@material-ui/icons/SettingsEthernet";
-import SettingsInputComponentIcon from "@material-ui/icons/SettingsInputComponent";
-import TimerIcon from "@material-ui/icons/Timer";
-import SettingsIcon from "@material-ui/icons/Settings";
-import PhonelinkSetupIcon from "@material-ui/icons/PhonelinkSetup";
 import KeyboardArrowRightIcon from "@material-ui/icons/KeyboardArrowRight";
 import { Collapse } from "@material-ui/core";
 import produce from "immer";
+import { useSelector, useDispatch } from "react-redux";
+import { actions } from "../../actions";
+import MenuA from "./MenuA";
+import MenuB from "./MenuB";
 
 const categories = [
   {
@@ -31,11 +25,22 @@ const categories = [
       {
         id: "MENU001001",
         name: "계약현황",
+        componentName: MenuA,
         icon: <KeyboardArrowRightIcon />,
         active: true,
       },
-      { id: "MENU001002", name: "계약조회", icon: <KeyboardArrowRightIcon /> },
-      { id: "MENU001003", name: "신용관리", icon: <KeyboardArrowRightIcon /> },
+      {
+        id: "MENU001002",
+        name: "계약조회",
+        componentName: MenuB,
+        icon: <KeyboardArrowRightIcon />,
+      },
+      {
+        id: "MENU001003",
+        name: "신용관리",
+        componentName: MenuB,
+        icon: <KeyboardArrowRightIcon />,
+      },
     ],
   },
   {
@@ -43,9 +48,24 @@ const categories = [
     name: "설치",
     index: 1,
     children: [
-      { id: "MENU002001", name: "설치조회", icon: <KeyboardArrowRightIcon /> },
-      { id: "MENU002002", name: "기사조회", icon: <KeyboardArrowRightIcon /> },
-      { id: "MENU002003", name: "설치등록", icon: <KeyboardArrowRightIcon /> },
+      {
+        id: "MENU002001",
+        name: "설치조회",
+        componentName: MenuB,
+        icon: <KeyboardArrowRightIcon />,
+      },
+      {
+        id: "MENU002002",
+        name: "기사조회",
+        componentName: MenuB,
+        icon: <KeyboardArrowRightIcon />,
+      },
+      {
+        id: "MENU002003",
+        name: "설치등록",
+        componentName: MenuB,
+        icon: <KeyboardArrowRightIcon />,
+      },
     ],
   },
 ];
@@ -93,17 +113,17 @@ const styles = (theme) => ({
 
 function Navigator(props) {
   const { classes, ...other } = props;
+  const dispatch = useDispatch();
   const [menuOpen, setMenuOpen] = useState(categories.map(() => false));
   const [menuActive, setMenuActive] = useState(null);
 
   const handleClick = (index) => {
     setMenuOpen(menuOpen.map((open, idx) => (idx === index ? !open : open)));
   };
-  const handleActiveClick = (menuId) => {
+  const handleActiveClick = (menuId, menuName, componentName) => {
     setMenuActive(menuId);
+    dispatch(actions.addMenuAction(menuId, menuName, componentName));
   };
-
-  console.log(menuActive);
 
   return (
     <Drawer variant="permanent" {...other}>
@@ -130,28 +150,32 @@ function Navigator(props) {
             </ListItem>
             <Collapse in={menuOpen[index]} timeout="auto" unmountOnExit>
               <List component="div" disablePadding>
-                {children.map(({ id: childId, name, icon, active }) => (
-                  <ListItem
-                    key={childId}
-                    button
-                    className={clsx(
-                      classes.item,
-                      menuActive === childId && classes.itemActiveItem
-                    )}
-                    onClick={() => handleActiveClick(childId)}
-                  >
-                    <ListItemIcon className={classes.itemIcon}>
-                      {icon}
-                    </ListItemIcon>
-                    <ListItemText
-                      classes={{
-                        primary: classes.itemPrimary,
-                      }}
+                {children.map(
+                  ({ id: childId, name, componentName, icon, active }) => (
+                    <ListItem
+                      key={childId}
+                      button
+                      className={clsx(
+                        classes.item,
+                        menuActive === childId && classes.itemActiveItem
+                      )}
+                      onClick={() =>
+                        handleActiveClick(childId, name, componentName)
+                      }
                     >
-                      {name}
-                    </ListItemText>
-                  </ListItem>
-                ))}
+                      <ListItemIcon className={classes.itemIcon}>
+                        {icon}
+                      </ListItemIcon>
+                      <ListItemText
+                        classes={{
+                          primary: classes.itemPrimary,
+                        }}
+                      >
+                        {name}
+                      </ListItemText>
+                    </ListItem>
+                  )
+                )}
               </List>
             </Collapse>
             <Divider className={classes.divider} />

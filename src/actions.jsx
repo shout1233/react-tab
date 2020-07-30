@@ -13,6 +13,7 @@ const types = {
   SET_GRID_DATA: "SET_GRID_DATA",
   FETCH_GRID_DATA: "FETCH_GRID_DATA",
   EDIT_CELL: "EDIT_CELL",
+  ADD_MENU_TAB: "ADD_MENU_TAB",
 };
 
 export const actions = {
@@ -30,9 +31,25 @@ export const actions = {
       dispatch(actions.addNewTab(gridConfig));
 
       let nextTabIndex = getState().allGrids.length - 1;
-      console.log("nextTabIndex : " + nextTabIndex);
       dispatch(actions.setTabIndex(nextTabIndex));
       dispatch(actions.fetchGridDataAction(gridConfig.id, gridConfig.url));
+    };
+  },
+
+  addMenuAction(menuId, menuName, componentName) {
+    return (dispatch, getState) => {
+      const selectedMenus = getState().selectedMenus;
+      const tabIndex = selectedMenus.findIndex(
+        (menu) => menu.menuId === menuId
+      );
+
+      if (tabIndex > -1) {
+        dispatch(actions.setTabIndex(tabIndex));
+      } else {
+        dispatch(actions.addMenuTab(menuId, menuName, componentName));
+        let nextTabIndex = getState().selectedMenus.length - 1;
+        dispatch(actions.setTabIndex(nextTabIndex));
+      }
     };
   },
 
@@ -65,6 +82,13 @@ export const actions = {
     return {
       type: types.SET_TAB_INDEX,
       payload: tabIndex,
+    };
+  },
+
+  addMenuTab(menuId, menuName, componentName) {
+    return {
+      type: types.ADD_MENU_TAB,
+      payload: { menuId, menuName, componentName },
     };
   },
 

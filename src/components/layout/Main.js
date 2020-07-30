@@ -13,6 +13,8 @@ import Navigator from "./Navigator";
 import TabsList from "./TabsList";
 import PanelsList from "./PanelsList";
 import Header from "./Header";
+import Content from "./Content";
+import ContentList from "./ConTentList";
 // import Content from "./Content";
 // import Header from "./Header";
 
@@ -195,6 +197,9 @@ function Paperbase(props) {
         </nav>
         <div className={classes.app}>
           <Header onDrawerToggle={handleDrawerToggle} />
+          <main className={classes.main}>
+            <ContentList />
+          </main>
         </div>
       </div>
     </ThemeProvider>

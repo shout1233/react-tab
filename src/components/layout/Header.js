@@ -17,6 +17,9 @@ import Tooltip from "@material-ui/core/Tooltip";
 import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import CloseIcon from "@material-ui/icons/Close";
+import { useSelector, useDispatch } from "react-redux";
+import { actions } from "../../actions";
+import { getTabIndex, getSelectedMenus } from "../../store";
 
 const lightColor = "rgba(255, 255, 255, 0.7)";
 
@@ -46,7 +49,16 @@ const styles = (theme) => ({
 });
 
 function Header(props) {
+  const dispatch = useDispatch();
   const { classes, onDrawerToggle } = props;
+  const tabIndex = useSelector((state) => getTabIndex(state));
+  const selectedMenus = useSelector((state) => getSelectedMenus(state));
+
+  const allTabs = makeTab(selectedMenus, classes);
+
+  const handleChange = (event, newValue) => {
+    dispatch(actions.setTabIndex(newValue));
+  };
 
   return (
     <React.Fragment>
@@ -94,48 +106,8 @@ function Header(props) {
         position="static"
         elevation={0}
       >
-        <Tabs value={0} textColor="inherit">
-          <Tab
-            classes={{ wrapper: classes.tabWrapper }}
-            component="div"
-            textColor="inherit"
-            label="Users"
-            icon={
-              <IconButton container="div" onClick={(e) => {}}>
-                <CloseIcon></CloseIcon>
-              </IconButton>
-            }
-          />
-          <Tab
-            classes={{ wrapper: classes.tabWrapper }}
-            textColor="inherit"
-            label="Sign-in method"
-            icon={
-              <IconButton container="div" onClick={(e) => {}}>
-                <CloseIcon></CloseIcon>
-              </IconButton>
-            }
-          />
-          <Tab
-            classes={{ wrapper: classes.tabWrapper }}
-            textColor="inherit"
-            label="Templates"
-            icon={
-              <IconButton container="div" onClick={(e) => {}}>
-                <CloseIcon></CloseIcon>
-              </IconButton>
-            }
-          />
-          <Tab
-            classes={{ wrapper: classes.tabWrapper }}
-            textColor="inherit"
-            label="Usage"
-            icon={
-              <IconButton container="div" onClick={(e) => {}}>
-                <CloseIcon></CloseIcon>
-              </IconButton>
-            }
-          />
+        <Tabs value={tabIndex} textColor="inherit" onChange={handleChange}>
+          {allTabs}
         </Tabs>
       </AppBar>
     </React.Fragment>
@@ -148,3 +120,23 @@ Header.propTypes = {
 };
 
 export default withStyles(styles)(Header);
+
+function makeTab(selectedMenus, classes) {
+  return selectedMenus.map((menu, index) => {
+    return (
+      <Tab
+        key={index}
+        index={index}
+        label={menu.menuName}
+        classes={{ wrapper: classes.tabWrapper }}
+        component="div"
+        textColor="inherit"
+        icon={
+          <IconButton container="div" onClick={(e) => {}}>
+            <CloseIcon></CloseIcon>
+          </IconButton>
+        }
+      />
+    );
+  });
+}
