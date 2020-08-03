@@ -30,7 +30,7 @@ export const actions = {
       gridConfig.id = genId();
       dispatch(actions.addNewTab(gridConfig));
 
-      let nextTabIndex = getState().allGrids.length - 1;
+      let nextTabIndex = getState().menu.allGrids.length - 1;
       dispatch(actions.setTabIndex(nextTabIndex));
       dispatch(actions.fetchGridDataAction(gridConfig.id, gridConfig.url));
     };
@@ -38,7 +38,7 @@ export const actions = {
 
   addMenuAction(menuId, menuName, componentName) {
     return (dispatch, getState) => {
-      const selectedMenus = getState().selectedMenus;
+      const selectedMenus = getState().menu.selectedMenus;
       const tabIndex = selectedMenus.findIndex(
         (menu) => menu.menuId === menuId
       );
@@ -47,7 +47,7 @@ export const actions = {
         dispatch(actions.setTabIndex(tabIndex));
       } else {
         dispatch(actions.addMenuTab(menuId, menuName, componentName));
-        let nextTabIndex = getState().selectedMenus.length - 1;
+        let nextTabIndex = getState().menu.selectedMenus.length - 1;
         dispatch(actions.setTabIndex(nextTabIndex));
       }
     };

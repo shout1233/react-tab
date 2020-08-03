@@ -6,9 +6,9 @@ import MyGrid from "./MyGrid";
 import Content from "./Content";
 
 function ContentList(props) {
-  const selectedMenus = useSelector((state) => getSelectedMenus(state));
+  const selectedMenus = useSelector((state) => getSelectedMenus(state.menu));
   //console.log(allGrids.length);
-  const currentTabIndex = useSelector((state) => getTabIndex(state));
+  const currentTabIndex = useSelector((state) => getTabIndex(state.menu));
   //console.log("currentTabIndex : " + currentTabIndex);
 
   let allContents = selectedMenus.map((menu, idx) => {

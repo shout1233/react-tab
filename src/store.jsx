@@ -1,8 +1,4 @@
-import { createStore, applyMiddleware } from "redux";
 import { produce } from "immer";
-import logger from "redux-logger";
-
-import thunk from "redux-thunk";
 import { actions } from "./actions";
 
 const initialState = {
@@ -87,7 +83,7 @@ const types = {
   ADD_MENU_TAB: "ADD_MENU_TAB",
 };
 
-function gridReducer(state = {}, action) {
+export default function menu(state = initialState, action) {
   const payload = action.payload;
   switch (action.type) {
     case types.ADD_NEW_TAB:
@@ -280,5 +276,3 @@ export function getGridById(state, gridId) {
 
   new Error(" GRID NOT FOUND << < << ");
 }
-
-export default createStore(gridReducer, initialState, applyMiddleware(thunk));

@@ -15,6 +15,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { actions } from "../../actions";
 import MenuA from "./MenuA";
 import MenuB from "./MenuB";
+import Account from "../../sample01/Account";
+import AccountRedux from "../../sample02/Account";
 
 const categories = [
   {
@@ -25,7 +27,7 @@ const categories = [
       {
         id: "MENU001001",
         name: "계약현황",
-        componentName: MenuA,
+        componentName: MenuB,
         icon: <KeyboardArrowRightIcon />,
         active: true,
       },
@@ -64,6 +66,26 @@ const categories = [
         id: "MENU002003",
         name: "설치등록",
         componentName: MenuB,
+        icon: <KeyboardArrowRightIcon />,
+      },
+    ],
+  },
+  {
+    id: "MENU003",
+    name: "사용자관리",
+    index: 2,
+    children: [
+      {
+        id: "MENU003001",
+        name: "사용자관리",
+        componentName: Account,
+        icon: <KeyboardArrowRightIcon />,
+        active: true,
+      },
+      {
+        id: "MENU003002",
+        name: "사용자관리(Redux)",
+        componentName: AccountRedux,
         icon: <KeyboardArrowRightIcon />,
       },
     ],

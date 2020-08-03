@@ -51,8 +51,8 @@ const styles = (theme) => ({
 function Header(props) {
   const dispatch = useDispatch();
   const { classes, onDrawerToggle } = props;
-  const tabIndex = useSelector((state) => getTabIndex(state));
-  const selectedMenus = useSelector((state) => getSelectedMenus(state));
+  const tabIndex = useSelector((state) => getTabIndex(state.menu));
+  const selectedMenus = useSelector((state) => getSelectedMenus(state.menu));
 
   const allTabs = makeTab(selectedMenus, classes);
 
