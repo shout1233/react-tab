@@ -3,6 +3,7 @@ import produce from "immer";
 const SET_USER = "SET_USER";
 const INSERT_OR_UPDATE = "INSERT_OR_UPDATE";
 const DELETE = "DELETE";
+const INIT = "INIT";
 
 export function setUser(user) {
   return { type: SET_USER, user };
@@ -12,6 +13,10 @@ export function insertOrUpdateUser(user) {
 }
 export function deleteUser(user) {
   return { type: DELETE, user };
+}
+
+export function init() {
+  return { type: INIT };
 }
 
 export default function user(state = initialState, action) {
@@ -40,6 +45,10 @@ export default function user(state = initialState, action) {
           (row) => row.userId !== action.user.userId
         );
         draft.selectedUser = initialUser;
+        break;
+      case INIT:
+        console.log(initialState);
+        draft = null;
         break;
       default:
     }

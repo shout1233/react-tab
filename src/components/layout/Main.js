@@ -7,29 +7,11 @@ import {
 } from "@material-ui/core/styles";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import Hidden from "@material-ui/core/Hidden";
-import Typography from "@material-ui/core/Typography";
-import Link from "@material-ui/core/Link";
 import Navigator from "./Navigator";
-import TabsList from "./TabsList";
-import PanelsList from "./PanelsList";
 import Header from "./Header";
-import Content from "./Content";
 import ContentList from "./ConTentList";
 // import Content from "./Content";
 // import Header from "./Header";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
 
 let theme = createMuiTheme({
   palette: {

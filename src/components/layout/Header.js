@@ -2,9 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import AppBar from "@material-ui/core/AppBar";
 import Avatar from "@material-ui/core/Avatar";
-import Button from "@material-ui/core/Button";
 import Grid from "@material-ui/core/Grid";
-import HelpIcon from "@material-ui/icons/Help";
 import Hidden from "@material-ui/core/Hidden";
 import IconButton from "@material-ui/core/IconButton";
 import Link from "@material-ui/core/Link";
@@ -14,7 +12,6 @@ import Tab from "@material-ui/core/Tab";
 import Tabs from "@material-ui/core/Tabs";
 import Toolbar from "@material-ui/core/Toolbar";
 import Tooltip from "@material-ui/core/Tooltip";
-import Typography from "@material-ui/core/Typography";
 import { withStyles } from "@material-ui/core/styles";
 import CloseIcon from "@material-ui/icons/Close";
 import { useSelector, useDispatch } from "react-redux";
@@ -54,7 +51,7 @@ function Header(props) {
   const tabIndex = useSelector((state) => getTabIndex(state.menu));
   const selectedMenus = useSelector((state) => getSelectedMenus(state.menu));
 
-  const allTabs = makeTab(selectedMenus, classes);
+  const allTabs = makeTab(selectedMenus, classes, dispatch);
 
   const handleChange = (event, newValue) => {
     dispatch(actions.setTabIndex(newValue));
@@ -121,7 +118,7 @@ Header.propTypes = {
 
 export default withStyles(styles)(Header);
 
-function makeTab(selectedMenus, classes) {
+function makeTab(selectedMenus, classes, dispatch) {
   return selectedMenus.map((menu, index) => {
     return (
       <Tab
@@ -132,7 +129,13 @@ function makeTab(selectedMenus, classes) {
         component="div"
         textColor="inherit"
         icon={
-          <IconButton container="div" onClick={(e) => {}}>
+          <IconButton
+            container="div"
+            onClick={(e) => {
+              e.stopPropagation(); // to prevent Parent onChange handler
+              dispatch(actions.deleteMenuTab(menu.menuId));
+            }}
+          >
             <CloseIcon></CloseIcon>
           </IconButton>
         }
