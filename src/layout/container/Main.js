@@ -10,8 +10,6 @@ import Hidden from "@material-ui/core/Hidden";
 import Navigator from "./Navigator";
 import Header from "./Header";
 import ContentList from "./ConTentList";
-// import Content from "./Content";
-// import Header from "./Header";
 
 let theme = createMuiTheme({
   palette: {
@@ -154,6 +152,7 @@ const styles = {
 
 function Paperbase(props) {
   const { classes } = props;
+
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {

@@ -15,46 +15,25 @@ import Tooltip from "@material-ui/core/Tooltip";
 import { withStyles } from "@material-ui/core/styles";
 import CloseIcon from "@material-ui/icons/Close";
 import { useSelector, useDispatch } from "react-redux";
-import { actions } from "../../actions";
-import { getTabIndex, getSelectedMenus } from "../../store";
+import { actions } from "../state";
 
-const lightColor = "rgba(255, 255, 255, 0.7)";
-
-const styles = (theme) => ({
-  secondaryBar: {
-    zIndex: 0,
-  },
-  menuButton: {
-    marginLeft: -theme.spacing(1),
-  },
-  iconButtonAvatar: {
-    padding: 4,
-  },
-  link: {
-    textDecoration: "none",
-    color: lightColor,
-    "&:hover": {
-      color: theme.palette.common.white,
-    },
-  },
-  button: {
-    borderColor: lightColor,
-  },
-  tabWrapper: {
-    flexDirection: "row-reverse !important",
-  },
-});
+Header.propTypes = {
+  classes: PropTypes.object.isRequired,
+  onDrawerToggle: PropTypes.func.isRequired,
+};
 
 function Header(props) {
   const dispatch = useDispatch();
   const { classes, onDrawerToggle } = props;
-  const tabIndex = useSelector((state) => getTabIndex(state.menu));
-  const selectedMenus = useSelector((state) => getSelectedMenus(state.menu));
+  const tabIndex = useSelector(({ menuTab }) =>
+    menuTab.tabIndex ? menuTab.tabIndex : 0
+  );
+  const selectedMenus = useSelector(({ menuTab }) => menuTab.selectedMenus);
 
   const allTabs = makeTab(selectedMenus, classes, dispatch);
 
   const handleChange = (event, newValue) => {
-    dispatch(actions.setTabIndex(newValue));
+    dispatch(actions.setValue("tabIndex", newValue));
   };
 
   return (
@@ -103,7 +82,7 @@ function Header(props) {
         position="static"
         elevation={0}
       >
-        <Tabs value={tabIndex} textColor="inherit" onChange={handleChange}>
+        <Tabs value={tabIndex} onChange={handleChange}>
           {allTabs}
         </Tabs>
       </AppBar>
@@ -111,10 +90,32 @@ function Header(props) {
   );
 }
 
-Header.propTypes = {
-  classes: PropTypes.object.isRequired,
-  onDrawerToggle: PropTypes.func.isRequired,
-};
+const lightColor = "rgba(255, 255, 255, 0.7)";
+
+const styles = (theme) => ({
+  secondaryBar: {
+    zIndex: 0,
+  },
+  menuButton: {
+    marginLeft: -theme.spacing(1),
+  },
+  iconButtonAvatar: {
+    padding: 4,
+  },
+  link: {
+    textDecoration: "none",
+    color: lightColor,
+    "&:hover": {
+      color: theme.palette.common.white,
+    },
+  },
+  button: {
+    borderColor: lightColor,
+  },
+  tabWrapper: {
+    flexDirection: "row-reverse !important",
+  },
+});
 
 export default withStyles(styles)(Header);
 
@@ -133,10 +134,10 @@ function makeTab(selectedMenus, classes, dispatch) {
             container="div"
             onClick={(e) => {
               e.stopPropagation(); // to prevent Parent onChange handler
-              dispatch(actions.deleteMenuTab(menu.menuId));
+              dispatch(actions.deleteTab(menu.menuId));
             }}
           >
-            <CloseIcon></CloseIcon>
+            <CloseIcon fontSize="small" />
           </IconButton>
         }
       />

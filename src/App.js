@@ -1,8 +1,20 @@
 import React from "react";
-import Main from "./components/layout/Main";
+import { useEffect } from "react";
+import Main from "./layout/container/Main";
+import Loading from "./common/loading/Loading";
 
 const App = () => {
-  return <Main />;
+  useEffect(() => {
+    const bodyEl = document.getElementsByTagName("body")[0];
+    const loadingEl = document.getElementById("init-loading");
+    bodyEl.removeChild(loadingEl);
+  }, []);
+  return (
+    <>
+      <Main />
+      <Loading />
+    </>
+  );
 };
 
 export default App;
