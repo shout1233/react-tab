@@ -41,7 +41,10 @@ export default function TodoDetails() {
   return (
     <Card>
       <form autoComplete="off" noValidate>
-        <CardHeader title="사용자 정보" />
+        <CardHeader
+          title="Todo 상세"
+          titleTypographyProps={{ variant: "h6" }}
+        />
         <Divider />
         <CardContent>
           <Grid container spacing={3}>

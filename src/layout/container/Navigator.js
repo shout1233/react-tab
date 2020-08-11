@@ -105,7 +105,7 @@ const categories = [
       {
         id: "MENU001002",
         name: "계약조회",
-        componentName: "TestMenu",
+        componentName: "Product",
       },
       {
         id: "MENU001003",

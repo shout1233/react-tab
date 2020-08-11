@@ -11,29 +11,28 @@ import {
 import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
-import { actions } from "../state";
 import { snackbarActions } from "../../common/snackbar/state";
 import SnackBar from "../../common/snackbar/SnackBar";
+import { deleteProduct } from "../state/thunk";
 
 export default function TodoList() {
   const { columnDefs, rowData, defaultColDef } = useSelector(
-    (state) => state.todo.todoGrid
+    (state) => state.product.productGrid
   );
   const dispatch = useDispatch();
 
   function deleteTodo() {
     if (validateDelete()) {
-      const deletedList = makeDeletedList(rowData);
-      dispatch(actions.setTodoList(deletedList));
+      dispatch(deleteProduct(getSelectedId()));
     } else {
-      dispatch(snackbarActions.setOpen("삭제할 할일을 선택해주세요.", "error"));
+      dispatch(snackbarActions.setOpen("삭제할 제품을 선택해주세요.", "error"));
     }
   }
 
   return (
     <Card>
       <CardHeader
-        title="Todo 리스트"
+        title="제품 리스트"
         titleTypographyProps={{ variant: "h6" }}
       />
       <Divider />
@@ -70,13 +69,9 @@ function onGridReady(params) {
   gridApi = params.api;
 }
 
-function makeDeletedList(origin) {
+function getSelectedId() {
   const selectedRows = gridApi.getSelectedRows();
-  const deletedData = origin.filter(
-    (row) =>
-      row.userId !== selectedRows[0].userId || row.id !== selectedRows[0].id
-  );
-  return deletedData;
+  return selectedRows[0].id;
 }
 
 function validateDelete() {

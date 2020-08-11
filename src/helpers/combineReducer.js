@@ -4,6 +4,7 @@ import todoReducer from "../sample03/state";
 import snackbarReducer from "../common/snackbar/state";
 import menuTabReducer from "../layout/state";
 import loadingReducer from "../common/loading/state";
+import productReducer from "../product/state";
 
 export default combineReducers({
   menuTab: menuTabReducer,
@@ -11,4 +12,5 @@ export default combineReducers({
   todo: todoReducer,
   snackbar: snackbarReducer,
   loading: loadingReducer,
+  product: productReducer,
 });

@@ -4,6 +4,7 @@ import AccountRedux from "../sample02/Account";
 import Todo from "../sample03/container/Todo";
 import TestMenu from "../layout/component/TestMenu";
 import TestMenu2 from "../layout/component/TestMenu2";
+import Product from "../product/container/Product";
 
 export const componentsMap = {
   Study01: Study01,
@@ -12,4 +13,5 @@ export const componentsMap = {
   Todo: Todo,
   TestMenu: TestMenu,
   TestMenu2: TestMenu2,
+  Product: Product,
 };

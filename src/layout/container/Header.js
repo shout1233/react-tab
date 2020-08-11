@@ -114,6 +114,7 @@ const styles = (theme) => ({
   },
   tabWrapper: {
     flexDirection: "row-reverse !important",
+    fontSize: "18px",
   },
 });
 
