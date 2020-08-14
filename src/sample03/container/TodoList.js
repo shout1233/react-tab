@@ -13,7 +13,6 @@ import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { actions } from "../state";
 import { snackbarActions } from "../../common/snackbar/state";
-import SnackBar from "../../common/snackbar/SnackBar";
 
 export default function TodoList() {
   const { columnDefs, rowData, defaultColDef } = useSelector(
@@ -60,7 +59,6 @@ export default function TodoList() {
           삭제
         </Button>
       </CardActions>
-      <SnackBar />
     </Card>
   );
 }

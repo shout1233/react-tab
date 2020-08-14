@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect } from "react";
 import Main from "./layout/container/Main";
 import Loading from "./common/loading/Loading";
+import SnackBar from "./common/snackbar/SnackBar";
 
 const App = () => {
   useEffect(() => {
@@ -13,6 +14,7 @@ const App = () => {
     <>
       <Main />
       <Loading />
+      <SnackBar />
     </>
   );
 };

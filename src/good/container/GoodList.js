@@ -12,26 +12,26 @@ import { AgGridReact } from "ag-grid-react";
 import "ag-grid-community/dist/styles/ag-grid.css";
 import "ag-grid-community/dist/styles/ag-theme-alpine.css";
 import { snackbarActions } from "../../common/snackbar/state";
-import { deleteProduct } from "../state/thunk";
+import { deleteGood } from "../state/thunk";
 
 export default function TodoList() {
   const { columnDefs, rowData, defaultColDef } = useSelector(
-    (state) => state.product.productGrid
+    (state) => state.good.goodGrid
   );
   const dispatch = useDispatch();
 
-  function deleteTodo() {
+  function onDeleteClick() {
     if (validateDelete()) {
-      dispatch(deleteProduct(getSelectedId()));
+      dispatch(deleteGood(getSelectedId()));
     } else {
-      dispatch(snackbarActions.setOpen("삭제할 제품을 선택해주세요.", "error"));
+      dispatch(snackbarActions.setOpen("삭제할 상품을 선택해주세요.", "error"));
     }
   }
 
   return (
     <Card>
       <CardHeader
-        title="제품 리스트"
+        title="상품 리스트"
         titleTypographyProps={{ variant: "h6" }}
       />
       <Divider />
@@ -54,7 +54,7 @@ export default function TodoList() {
       </CardContent>
       <Divider />
       <CardActions>
-        <Button color="primary" variant="contained" onClick={deleteTodo}>
+        <Button color="primary" variant="contained" onClick={onDeleteClick}>
           삭제
         </Button>
       </CardActions>

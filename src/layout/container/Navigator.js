@@ -93,79 +93,82 @@ function Navigator(props) {
 const categories = [
   {
     id: "MENU001",
-    name: "계약",
+    name: "기준정보",
     index: 0,
     children: [
       {
         id: "MENU001001",
-        name: "계약현황",
-        componentName: "Todo",
+        name: "제품관리",
+        componentName: "Product",
         active: true,
       },
       {
         id: "MENU001002",
-        name: "계약조회",
-        componentName: "Product",
-      },
-      {
-        id: "MENU001003",
-        name: "신용관리",
-        componentName: "TestMenu2",
+        name: "상품관리",
+        componentName: "Good",
       },
     ],
   },
   {
     id: "MENU002",
-    name: "설치",
+    name: "주문",
     index: 1,
     children: [
       {
         id: "MENU002001",
-        name: "설치조회",
-        componentName: "TestMenu",
-      },
-      {
-        id: "MENU002002",
-        name: "기사조회",
-        componentName: "TestMenu",
-      },
-      {
-        id: "MENU002003",
-        name: "설치등록",
-        componentName: "TestMenu",
+        name: "주문등록",
+        componentName: "Order",
       },
     ],
   },
   {
-    id: "MENU003",
-    name: "사용자관리",
+    id: "MENU005",
+    name: "설치",
     index: 2,
     children: [
       {
-        id: "MENU003001",
-        name: "사용자관리",
-        componentName: "Account",
-        active: true,
-      },
-      {
-        id: "MENU003002",
-        name: "사용자관리(Redux)",
-        componentName: "AccountRedux",
+        id: "MENU005001",
+        name: "설치정보",
+        componentName: "Delivery",
       },
     ],
   },
-  {
-    id: "MENU004",
-    name: "개인 스터디",
-    index: 3,
-    children: [
-      {
-        id: "MENU004001",
-        name: "useCallback",
-        componentName: "Study01",
-      },
-    ],
-  },
+  // {
+  //   id: "MENU003",
+  //   name: "사용자관리",
+  //   index: 2,
+  //   children: [
+  //     {
+  //       id: "MENU003001",
+  //       name: "사용자관리",
+  //       componentName: "Account",
+  //       active: true,
+  //     },
+  //     {
+  //       id: "MENU003002",
+  //       name: "사용자관리(Redux)",
+  //       componentName: "AccountRedux",
+  //     },
+  //   ],
+  // },
+  // {
+  //   id: "MENU004",
+  //   name: "개인 스터디",
+  //   index: 3,
+  //   children: [
+  //     {
+  //       id: "MENU004001",
+  //       name: "useCallback",
+  //       componentName: "Study01",
+  //     },
+  //     {
+  //       id: "MENU004002",
+  //       name: "Todo",
+  //       componentName: "Todo",
+  //       active: true,
+  //     },
+  //   ],
+  // },
 ];
 
 const styles = (theme) => ({
